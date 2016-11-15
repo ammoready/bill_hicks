@@ -5,6 +5,7 @@ module BillHicks
     # CATALOG_FILENAME = 'billhickscatalog.csv'
     CATALOG_FILENAME = 'billhickscatalog-fixed.csv'
 
+
     def initialize(options = {})
       requires!(options, :username, :password)
       @options = options
