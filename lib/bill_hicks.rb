@@ -1,5 +1,11 @@
-require "bill_hicks/version"
+require 'bill_hicks/version'
+
+require 'csv'
+require 'net/ftp'
+
+require 'bill_hicks/base'
+require 'bill_hicks/catalog'
 
 module BillHicks
-  # Your code goes here...
+  class NotAuthenticated < StandardError; end
 end
