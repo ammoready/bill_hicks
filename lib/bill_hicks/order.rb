@@ -10,7 +10,7 @@ module BillHicks
     end
 
     def add_header(header = {})
-      requires!(header, :customer, :customer_po, :ffl, :shipping)
+      requires!(header, :customer, :purchase_order, :ffl, :shipping)
       requires!(header[:shipping], :name, :address_1, :city, :state, :zip)
       @header = header
     end
@@ -24,7 +24,7 @@ module BillHicks
       raise BillHicks::InvalidOrder.new("Must call #add_header before submitting") if @header.nil?
       raise BillHicks::InvalidOrder.new("Must add items with #add_item before submitting") if @items.empty?
 
-      @order_filename = "#{@header[:customer_po]}-order.txt"
+      @order_filename = "#{@header[:purchase_order]}-order.txt"
       @order_file = Tempfile.new(@order_filename)
       begin
         CSV.open(@order_file.path, 'w+') do |csv|
@@ -62,7 +62,7 @@ module BillHicks
         @header[:shipping][:city],
         @header[:shipping][:state],
         @header[:shipping][:zip],
-        @header[:customer_po],
+        @header[:purchase_order],
         @header[:shipping_method],
         @header[:notes],
         @header[:ffl],
