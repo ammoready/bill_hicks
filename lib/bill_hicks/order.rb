@@ -50,11 +50,12 @@ module BillHicks
     private
 
     def header_names
-      ['Customer#', 'Ship to Name1', 'Address 1', 'Address 2', 'city', 'state', 'zip', 'cust po', 'ship method', 'notes', 'FFL#']
+      ['HL', 'Customer#', 'Ship to Name1', 'Address 1', 'Address 2', 'city', 'state', 'zip', 'cust po', 'ship method', 'notes', 'FFL#']
     end
 
     def header_fields
       [
+        'H',
         @header[:customer],
         @header[:shipping][:name],
         @header[:shipping][:address_1],
@@ -70,11 +71,12 @@ module BillHicks
     end
 
     def items_header
-      ['Item', 'Description', 'Qty', 'Price']
+      ['LL', 'Item', 'Description', 'Qty', 'Price']
     end
 
     def item_fields(item)
       [
+        'L',
         item[:item_number],
         item[:description],
         item[:quantity],
