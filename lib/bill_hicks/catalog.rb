@@ -1,9 +1,26 @@
 module BillHicks
+  # Catalog item response structure:
+  #
+  #   {
+  #     product_name:           "...",
+  #     universal_product_code: "...",
+  #     short_description:      "...",
+  #     long_description:       "...",
+  #     category_code:          "...",
+  #     category_description:   "...",
+  #     product_price:          "...",
+  #     small_image_path:       "...",
+  #     large_image_path:       "...",
+  #     product_weight:         "...",
+  #     marp:                   "...",
+  #     msrp:                   "...",
+  #     upc:                    "..."  # alias of ':universal_product_code'
+  #   }
   class Catalog < Base
 
     # FIXME: Change this back to the normal filename as soon as they fix the headers in this file.
-    # CATALOG_FILENAME = 'billhickscatalog.csv'
-    CATALOG_FILENAME = 'billhickscatalog-fixed.csv'
+    CATALOG_FILENAME = 'billhickscatalog.csv'
+    # CATALOG_FILENAME = 'billhickscatalog-fixed.csv'
 
 
     def initialize(options = {})
@@ -16,23 +33,7 @@ module BillHicks
       new(options).all
     end
 
-    # Field names:
-    #
-    #   {
-    #     product_name:           "...",
-    #     universal_product_code: "...",
-    #     short_description:      "...",
-    #     long_description:       "...",
-    #     category_code:          "...",
-    #     category_description:   "...",
-    #     product_price:          "...",
-    #     small_image_path:       "...",
-    #     large_image_path:       "...",
-    #     product_weight:         "...",
-    #     marp:                   "...",
-    #     msrp:                   "...",
-    #     upc:                    "..."  # alias of ':universal_product_code'
-    #   }
+    # Returns an array of hashes with the catalog item details.
     def all
       catalog = []
 
@@ -40,6 +41,8 @@ module BillHicks
         ftp.chdir(FTP_DIR)
 
         lines = ftp.gettextfile(CATALOG_FILENAME, nil)
+
+        STDOUT.puts "-- DEBUG: #{self.class}: #{lines.inspect}"
 
         CSV.parse(lines, headers: :first_row) do |row|
           row_hash = {}

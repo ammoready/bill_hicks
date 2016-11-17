@@ -1,4 +1,11 @@
 module BillHicks
+  # Inventory item response structure:
+  #
+  #   {
+  #     product:  "...",
+  #     upc:      "...",
+  #     quantity: "..."
+  #   }
   class Inventory < Base
 
     INVENTORY_FILENAME = 'billhicksinventory.csv'
@@ -14,13 +21,7 @@ module BillHicks
       new(options).all
     end
 
-    # Field names:
-    #
-    #   {
-    #     product:  "...",
-    #     upc:      "...",
-    #     quantity: "..."
-    #   }
+    # Returns an array of hashes with the inventory item details.
     def all
       inventory = []
 

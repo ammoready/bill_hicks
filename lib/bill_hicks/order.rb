@@ -1,20 +1,45 @@
 module BillHicks
+  # To submit an order:
+  #
+  # * Instantiate a new Order, passing in `:username` and `:password`
+  # * Call {#add_header}
+  # * Call {#add_item} for each item on the order
+  # * Call {#submit!} to send the order
+  #
+  # See each method for a list of required options.
   class Order < Base
 
     ORDER_UPLOAD_DIR = [FTP_DIR, 'toBHC'].join('/')
 
+    # @option options [String] :username *required*
+    # @option options [String] :password *required*
     def initialize(options = {})
       requires!(options, :username, :password)
       @options = options
       @items = []
     end
 
+    # @param [Hash] header
+    #   * :customer [String] *required*
+    #   * :purchase_order [String] *required*
+    #   * :ffl [String] *required*
+    #   * :shipping [Hash] *required*
+    #     * :name [String] *required*
+    #     * :address_1 [String] *required*
+    #     * :address_2 [String] optional
+    #     * :city [String] *required*
+    #     * :state [String] *required*
+    #     * :zip [String] *required*
     def add_header(header = {})
       requires!(header, :customer, :purchase_order, :ffl, :shipping)
       requires!(header[:shipping], :name, :address_1, :city, :state, :zip)
       @header = header
     end
 
+    # @option item [String] :item_number *required*
+    # @option item [Integer] :quantity *required*
+    # @option item [String] :price *required* - Decimal formatted price, without currency sign
+    # @option item [String] :description optional
     def add_item(item = {})
       requires!(item, :item_number, :quantity, :price)
       @items << item

@@ -1,4 +1,10 @@
 module BillHicks
+  # Category item response structure:
+  #
+  #   {
+  #     code:        "...",  # ':category_code' in Catalog response.
+  #     description: "..."   # ':category_description' in Catalog response.
+  #   }
   class Category < Base
 
     def initialize(options = {})
@@ -11,12 +17,7 @@ module BillHicks
       new(options).all
     end
 
-    # Field names:
-    #
-    #   {
-    #     code:        "...",  # ':category_code' in Catalog response.
-    #     description: "..."   # ':category_description' in Catalog response.
-    #   }
+    # Returns an array of hashes with category details.
     def all
       categories = []
 

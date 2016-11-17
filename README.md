@@ -20,7 +20,92 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+**Note:** Nearly all methods require `:username` and `:password` keys in the options hash.
+
+```ruby
+options = {
+  username: 'dealer@example.com',
+  password: 'sekret-passwd'
+}
+```
+
+### BillHicks::Catalog
+
+To get all items in the catalog:
+
+```ruby
+catalog = BillHicks::Catalog.all(options)
+```
+
+See `BillHicks::Catalog` for the response structure.
+
+### BillHicks::Inventory
+
+To get your inventory details (availability, price, etc.):
+
+```ruby
+inventory = BillHicks::Inventory.all(options)
+```
+
+See `BillHicks::Inventory` for the response structure.
+
+### BillHicks::Category
+
+Returns an array of category codes and descriptions.
+
+```ruby
+categories = BillHicks::Category.all(options)
+
+# [
+#   {:code=>"H648", :description=>"AIRGUNS"},
+#   {:code=>"H610", :description=>"AMMUNITION"},
+#   ...,
+# ]
+```
+
+### BillHicks::Order
+
+To build and submit an order, the basic steps are: 1) instantiate an Order object, 2) add header
+information, 3) add item information (multiple items if needed), 4) submit the order.
+
+```ruby
+# Instantiate the Order instance, passing in your :username and :password
+order = BillHicks::Order.new(options)
+
+# Add header information:
+header_opts = {
+  customer: '...',  # customer number
+  purchase_order: '...',  # application specific purchase order
+  ffl: '...',  # your FFL number
+  shipping: {  # shipping information (all fields except :address_2 are required)
+    name: '...',
+    address_1: '...',
+    address_2: '...',
+    city: '...',
+    state: '...',
+    zip: '...',
+  },
+
+  # Optional fields:
+  shipping_method: '...',
+  notes: '...',
+}
+order.add_header(header_opts)
+
+# Add item information:
+item_opts = {
+  item_number: '...',  # Bill Hicks item number
+  description: '...',
+  quantity: 1,
+  price: '123.45',  # Decimal formatted price, without currency sign
+}
+order.add_item(item_opts)  # Multiple items may be added, just call #add_item for each one.
+
+# Submit the order (returns true on success, raises an exception on failgure):
+order.submit!
+```
+
+See `BillHicks::Order` for details on required options.
 
 ## Development
 
