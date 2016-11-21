@@ -19,8 +19,8 @@ module BillHicks
   class Catalog < Base
 
     # FIXME: Change this back to the normal filename as soon as they fix the headers in this file.
-    CATALOG_FILENAME = 'billhickscatalog.csv'
-    # CATALOG_FILENAME = 'billhickscatalog-fixed.csv'
+    # CATALOG_FILENAME = 'billhickscatalog.csv'
+    CATALOG_FILENAME = 'billhickscatalog-fixed.csv'
 
 
     def initialize(options = {})
