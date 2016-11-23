@@ -18,9 +18,7 @@ module BillHicks
   #   }
   class Catalog < Base
 
-    # FIXME: Change this back to the normal filename as soon as they fix the headers in this file.
     CATALOG_FILENAME = 'billhickscatalog.csv'
-    # CATALOG_FILENAME = 'billhickscatalog-fixed.csv'
 
 
     def initialize(options = {})
@@ -41,11 +39,6 @@ module BillHicks
         ftp.chdir(FTP_DIR)
 
         lines = ftp.gettextfile(CATALOG_FILENAME, nil)
-
-        # HACK: Their CSV header line has ' + ' in there for some reason, so strip that out.
-        lines_array = lines.split('\n')
-        lines_array.first.gsub!(' + ', '')
-        lines = lines_array.join('\n')
 
         CSV.parse(lines, headers: :first_row) do |row|
           row_hash = {}
