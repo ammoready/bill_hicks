@@ -10,7 +10,6 @@ module BillHicks
 
     INVENTORY_FILENAME = 'billhicksinventory.csv'
 
-
     def initialize(options = {})
       requires!(options, :username, :password)
       @options = options
@@ -26,7 +25,7 @@ module BillHicks
       inventory = []
 
       connect(@options) do |ftp|
-        ftp.chdir(FTP_DIR)
+        ftp.chdir(BillHicks.config.top_level_dir)
 
         lines = ftp.gettextfile(INVENTORY_FILENAME, nil)
 

@@ -13,4 +13,38 @@ require 'bill_hicks/user'
 module BillHicks
   class InvalidOrder < StandardError; end
   class NotAuthenticated < StandardError; end
+  
+  class << self
+    attr_accessor :config
+  end
+
+  def self.config
+    @config ||= Configuration.new
+  end
+
+  def self.configure
+    yield(config)
+  end
+
+  class Configuration
+    attr_accessor :ftp_host
+    attr_accessor :response_dir
+    attr_accessor :submission_dir
+    attr_accessor :top_level_dir
+
+    def initialize
+      @ftp_host       ||= "billhicksco.hostedftp.com"
+      @top_level_dir  ||= "AmmoReady"
+      @submission_dir ||= "toBHC"
+      @response_dir   ||= "fromBHC"
+    end
+
+    def full_submission_dir
+      File.join(@top_level_dir, @submission_dir)
+    end
+
+    def full_response_dir
+      File.join(@top_level_dir, @response_dir)
+    end
+  end
 end

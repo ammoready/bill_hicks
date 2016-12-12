@@ -9,8 +9,6 @@ module BillHicks
   # See each method for a list of required options.
   class Order < Base
 
-    ORDER_UPLOAD_DIR = [FTP_DIR, 'toBHC'].join('/')
-
     # @option options [String] :username *required*
     # @option options [String] :password *required*
     def initialize(options = {})
@@ -111,7 +109,7 @@ module BillHicks
 
     def upload!
       connect(@options) do |ftp|
-        ftp.chdir(ORDER_UPLOAD_DIR)
+        ftp.chdir(BillHicks.config.full_submission_dir)
         ftp.puttextfile(@order_file.path, @order_filename)
       end
     end

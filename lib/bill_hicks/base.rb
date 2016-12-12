@@ -1,8 +1,16 @@
 module BillHicks
   class Base
 
-    FTP_HOST = 'billhicksco.hostedftp.com'
-    FTP_DIR  = 'AmmoReady'
+    def self.connect(options = {})
+      requires!(options, :username, :password)
+
+      Net::FTP.open(BillHicks.config.ftp_host, options[:username], options[:password]) do |ftp|
+        ftp.passive = true
+        yield ftp
+      end
+    rescue Net::FTPPermError
+      raise BillHicks::NotAuthenticated
+    end
 
     protected
 
@@ -24,15 +32,11 @@ module BillHicks
       end
     end
 
-    def connect(options = {})
-      requires!(options, :username, :password)
-
-      Net::FTP.open(FTP_HOST, options[:username], options[:password]) do |ftp|
-        ftp.passive = true
+    # Instance methods become class methods through inheritance
+    def connect(options)
+      self.class.connect(options) do |ftp|
         yield ftp
       end
-    rescue Net::FTPPermError
-      raise BillHicks::NotAuthenticated
     end
 
   end
