@@ -5,7 +5,7 @@ describe BillHicks do
     expect(BillHicks::VERSION).not_to be nil
   end
 
-  describe "#configure" do
+  describe "::Configuration" do
     before do
       BillHicks.configure do |config|
         config.ftp_host       = "ftp.host.com"

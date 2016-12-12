@@ -8,6 +8,7 @@ require 'bill_hicks/catalog'
 require 'bill_hicks/category'
 require 'bill_hicks/inventory'
 require 'bill_hicks/order'
+require 'bill_hicks/response_file'
 require 'bill_hicks/user'
 
 module BillHicks

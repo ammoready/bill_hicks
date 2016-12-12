@@ -43,12 +43,15 @@ module BillHicks
       @items << item
     end
 
+    def filename
+      "#{@header[:purchase_order]}-order.txt"
+    end
+
     def submit!
       raise BillHicks::InvalidOrder.new("Must call #add_header before submitting") if @header.nil?
       raise BillHicks::InvalidOrder.new("Must add items with #add_item before submitting") if @items.empty?
 
-      @order_filename = "#{@header[:purchase_order]}-order.txt"
-      @order_file = Tempfile.new(@order_filename)
+      @order_file = Tempfile.new(filename)
       begin
         CSV.open(@order_file.path, 'w+') do |csv|
           csv << header_names
@@ -110,7 +113,7 @@ module BillHicks
     def upload!
       connect(@options) do |ftp|
         ftp.chdir(BillHicks.config.full_submission_dir)
-        ftp.puttextfile(@order_file.path, @order_filename)
+        ftp.puttextfile(@order_file.path, filename)
       end
     end
 
