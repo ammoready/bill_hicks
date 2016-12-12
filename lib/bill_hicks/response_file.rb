@@ -10,6 +10,9 @@ module BillHicks
       "ASN" => "Advance Shipping Notice"
     }
 
+    # @option options [String] :username *required*
+    # @option options [String] :password *required*
+    # @option options [String] :filename *required*
     def initialize(options = {})
       requires!(options, :username, :password, :filename)
 
