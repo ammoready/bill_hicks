@@ -53,7 +53,7 @@ module BillHicks
 
       @order_file = Tempfile.new(filename)
       begin
-        CSV.open(@order_file.path, 'w+') do |csv|
+        CSV.open(@order_file.path, 'w+', col_sep: "\t") do |csv|
           csv << header_names
           csv << header_fields
           csv << items_header
