@@ -76,13 +76,14 @@ module BillHicks
     private
 
     def header_names
-      ['HL', 'Customer#', 'Ship to Name1', 'Address 1', 'Address 2', 'city', 'state', 'zip', 'cust po', 'ship method', 'notes', 'FFL#']
+      ['HL', 'Customer#', 'Ship to#', 'Ship to Name1', 'Address 1', 'Address 2', 'city', 'state', 'zip', 'cust po', 'ship method', 'notes', 'FFL#']
     end
 
     def header_fields
       [
         'H',
         @header[:customer],
+        @header[:shipping][:ship_to_number],
         @header[:shipping][:name],
         @header[:shipping][:address_1],
         @header[:shipping][:address_2],
