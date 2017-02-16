@@ -86,7 +86,7 @@ module BillHicks
         @header[:shipping][:ship_to_number],
         @header[:shipping][:name],
         @header[:shipping][:address_1],
-        @header[:shipping][:address_2],
+        (@header[:shipping][:address_2].empty? ? nil : @header[:shipping][:address_2]),
         @header[:shipping][:city],
         @header[:shipping][:state],
         @header[:shipping][:zip],
