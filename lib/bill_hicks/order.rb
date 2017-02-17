@@ -32,6 +32,10 @@ module BillHicks
       requires!(header, :customer, :purchase_order, :ffl, :shipping)
       requires!(header[:shipping], :name, :address_1, :city, :state, :zip)
       @header = header
+      # Ensure that address_2 is not an empty string
+      if @header[:shipping][:address_2] && @header[:shipping][:address_2].empty?
+        @header[:shipping][:address_2] = nil
+      end
     end
 
     # @option item [String] :item_number *required*
@@ -86,7 +90,7 @@ module BillHicks
         @header[:shipping][:ship_to_number],
         @header[:shipping][:name],
         @header[:shipping][:address_1],
-        (@header[:shipping][:address_2].empty? ? nil : @header[:shipping][:address_2]),
+        @header[:shipping][:address_2],
         @header[:shipping][:city],
         @header[:shipping][:state],
         @header[:shipping][:zip],

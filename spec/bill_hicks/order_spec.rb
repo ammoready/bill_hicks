@@ -26,6 +26,7 @@ describe BillHicks::Order do
     it { expect(order.instance_variable_get(:@header)[:customer]).to eq('12345') }
     it { expect(order.instance_variable_get(:@header)[:purchase_order]).to eq('1000-300') }
     it { expect(order.instance_variable_get(:@header)[:shipping][:name]).to eq('Joe') }
+    it { expect(order.instance_variable_get(:@header)[:shipping][:address_2]).to eq(nil) }
   end
 
 end
