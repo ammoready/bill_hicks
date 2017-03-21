@@ -20,6 +20,13 @@ module BillHicks
       new(options).all
     end
 
+    def self.process_as_chunks(size = 15, options = {})
+      requires!(options, :username, :password)
+      new(options).process_as_chunks(size) do |chunk|
+        yield(chunk)
+      end
+    end
+
     # Returns an array of hashes with the inventory item details.
     def all
       inventory = []
@@ -39,6 +46,21 @@ module BillHicks
       end
 
       inventory
+    end
+
+    # Streams csv and chunks it
+    #
+    # @size integer The number of items in each chunk
+    def process_as_chunks(size)
+      connect(@options) do |ftp|
+        ftp.chdir(BillHicks.config.top_level_dir)
+
+        csv_data = StringIO.new(ftp.gettextfile(INVENTORY_FILENAME, nil))
+
+        SmarterCSV.process(csv_data, { :chunk_size => size }) do |chunk|
+          yield(chunk)
+        end
+      end
     end
 
   end
