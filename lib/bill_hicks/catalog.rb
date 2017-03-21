@@ -30,6 +30,13 @@ module BillHicks
       new(options).all
     end
 
+    def self.process_as_chunks(size = 15, options = {})
+      requires!(options, :username, :password)
+      new(options).process_as_chunks(size) do |chunk|
+        yield(chunk)
+      end
+    end
+
     # Returns an array of hashes with the catalog item details.
     def all
       catalog = []
@@ -53,6 +60,21 @@ module BillHicks
       end
 
       catalog
+    end
+
+    # Streams csv and chunks it
+    #
+    # @size integer The number of items in each chunk
+    def process_as_chunks(size)
+      connect(@options) do |ftp|
+        ftp.chdir(BillHicks.config.top_level_dir)
+
+        csv_data = StringIO.new(ftp.gettextfile(CATALOG_FILENAME, nil))
+
+        SmarterCSV.process(csv_data, { :chunk_size => size }) do |chunk|
+          yield(chunk)
+        end
+      end
     end
 
   end
