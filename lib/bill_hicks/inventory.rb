@@ -53,13 +53,16 @@ module BillHicks
     # @size integer The number of items in each chunk
     def process_as_chunks(size)
       connect(@options) do |ftp|
+        temp_csv_file = Tempfile.new
+
         ftp.chdir(BillHicks.config.top_level_dir)
+        ftp.gettextfile(INVENTORY_FILENAME, temp_csv_file.path)
 
-        csv_data = StringIO.new(ftp.gettextfile(INVENTORY_FILENAME, nil))
-
-        SmarterCSV.process(csv_data, { :chunk_size => size }) do |chunk|
+        SmarterCSV.process(temp_csv_file, { :chunk_size => size }) do |chunk|
           yield(chunk)
         end
+
+        temp_csv_fil.unlink
       end
     end
 
