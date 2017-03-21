@@ -62,7 +62,7 @@ module BillHicks
           yield(chunk)
         end
 
-        temp_csv_fil.unlink
+        temp_csv_file.unlink
       end
     end
 
