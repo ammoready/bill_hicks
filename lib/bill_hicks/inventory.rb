@@ -56,9 +56,9 @@ module BillHicks
         temp_csv_file = Tempfile.new
 
         ftp.chdir(BillHicks.config.top_level_dir)
-        ftp.gettextfile(INVENTORY_FILENAME, temp_csv_file.path)
+        ftp.getbinaryfile(INVENTORY_FILENAME, temp_csv_file.path)
 
-        SmarterCSV.process(temp_csv_file, { :chunk_size => size }) do |chunk|
+        SmarterCSV.process(temp_csv_file, { :chunk_size => size, :force_utf8 => true, :convert_values_to_numeric => false }) do |chunk|
           yield(chunk)
         end
 
