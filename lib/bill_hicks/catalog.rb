@@ -30,11 +30,9 @@ module BillHicks
       new(options).all
     end
 
-    def self.process_as_chunks(size = 15, options = {})
+    def self.process_as_chunks(size = 15, options = {}, &block)
       requires!(options, :username, :password)
-      new(options).process_as_chunks(size) do |chunk|
-        yield(chunk)
-      end
+      new(options).process_as_chunks(size, &block)
     end
 
     # Returns an array of hashes with the catalog item details.
@@ -65,7 +63,7 @@ module BillHicks
     # Streams csv and chunks it
     #
     # @size integer The number of items in each chunk
-    def process_as_chunks(size)
+    def process_as_chunks(size, &block)
       connect(@options) do |ftp|
         temp_csv_file = Tempfile.new
 
