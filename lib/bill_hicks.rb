@@ -11,6 +11,7 @@ require 'bill_hicks/inventory'
 require 'bill_hicks/order'
 require 'bill_hicks/response_file'
 require 'bill_hicks/user'
+require 'bill_hicks/brand_converter'
 
 module BillHicks
   class InvalidOrder < StandardError; end
