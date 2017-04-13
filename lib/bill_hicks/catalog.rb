@@ -53,6 +53,8 @@ module BillHicks
           # Alias the ':universal_product_code' as ':upc'.
           row_hash[:upc] = row_hash[:universal_product_code]
 
+          row_hash[:brand] = BillHicks::BrandConverter.convert(row_hash[:product_name])
+
           catalog << row_hash
         end
       end
@@ -71,6 +73,10 @@ module BillHicks
         ftp.getbinaryfile(CATALOG_FILENAME, temp_csv_file.path)
 
         SmarterCSV.process(temp_csv_file, { :chunk_size => size, :force_utf8 => true, :convert_values_to_numeric => false }) do |chunk|
+          chunk.each do |item|
+            item[:brand] = BillHicks::BrandConverter.convert(item[:product_name])
+          end
+
           yield(chunk)
         end
 
