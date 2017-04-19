@@ -1,14 +1,18 @@
 module BillHicks
   class BrandConverter
+
+    @@brands = nil
+
     def self.convert(value)
-      if brand = @brands.detect {|brand| brand[:prefix] == value.split[0] }
+      if brand = self.brands.detect {|brand| brand[:prefix] == value.split[0] }
         brand[:company].empty? ? value.split[0] : brand[:company]
       else
         value.split[0]
       end
     end
 
-    @brands = [
+    def self.brands
+      @@brands ||= [
       {"prefix":"2A","company":"2A ARMAMENT"},
       {"prefix":"AAE","company":"AA&E"},
       {"prefix":"ADAMS","company":"ADAMS ARMS"},
@@ -392,8 +396,8 @@ module BillHicks
       {"prefix":"XP","company":"X PRODUCTS LLC"},
       {"prefix":"YHM","company":"YANKEE HILL MACHINE CO., INC."},
       {"prefix":"ZS","company":"CARL ZEISS SBE, LLC."},
-      {"prefix":"ZEN","company":"ZENITH FIREARMS"}
-    ]
+      {"prefix":"ZEN","company":"ZENITH FIREARMS"}]
+    end
 
   end
 end
