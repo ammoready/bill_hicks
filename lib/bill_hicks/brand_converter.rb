@@ -2,7 +2,7 @@ module BillHicks
   class BrandConverter
 
     def self.convert(value)
-      if brand = self.brands.detect {|brand| brand[:prefix] == value.split[0] }
+      if brand = self.brands.detect { |brand| brand[:prefix] == value.split[0] }
         brand[:company].empty? ? value.split[0] : brand[:company]
       else
         value.split[0]
