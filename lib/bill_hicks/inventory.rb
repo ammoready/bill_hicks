@@ -36,6 +36,7 @@ module BillHicks
 
         CSV.parse(lines, headers: :first_row) do |row|
           inventory << {
+            brand_name: BillHicks::BrandConverter.convert(row.fetch('Product')),
             product: row.fetch('Product'),
             upc: row.fetch('UPC'),
             quantity: (Integer(row.fetch('Qty Avail')) rescue 0)
@@ -56,7 +57,11 @@ module BillHicks
         ftp.chdir(BillHicks.config.top_level_dir)
         ftp.getbinaryfile(INVENTORY_FILENAME, temp_csv_file.path)
 
-        SmarterCSV.process(temp_csv_file, { :chunk_size => size, :force_utf8 => true, :convert_values_to_numeric => false }) do |chunk|
+        SmarterCSV.process(temp_csv_file, { :chunk_size => size, :force_utf8 => true, :convert_values_to_numeric => false, }) do |chunk|
+          chunk.each do |item|
+            item[:brand_name] = BillHicks::BrandConverter.convert(item[:product])
+          end
+
           yield(chunk)
         end
 
