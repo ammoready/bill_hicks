@@ -2,10 +2,10 @@ module BillHicks
   class BrandConverter
 
     def self.convert(value)
-      if brand = self.brands.detect { |brand| brand[:prefix] == value.split[0] }
+      if brand = self.brands.detect { |brand| brand[:prefix] == value.split[0].upcase }
         brand[:company].empty? ? value.split[0] : brand[:company]
       else
-        value.split[0]
+        value.split[0].upcase
       end
     end
 
@@ -234,7 +234,7 @@ module BillHicks
         { prefix: "MAKO", company: "MAKO GROUP, THE" },
         { prefix: "MANTA", company: "MANTA" },
         { prefix: "MAR", company: "MARLIN FIREARMS" },
-        { prefix: "ML", company: "MASTER LOCK COMPANY LLC" },
+        { prefix: "ML", company: "MASTER LOCK" },
         { prefix: "MPA", company: "MASTERPIECE ARMS" },
         { prefix: "MEC", company: "MAYVILLE ENGINEERING (MEC)" },
         { prefix: "MECGAR", company: "MEC-GAR USA, INC." },
@@ -273,7 +273,7 @@ module BillHicks
         { prefix: "PR", company: "PETE RICKARD INC" },
         { prefix: "PT", company: "PHOENIX TECHNOLOGY LTD." },
         { prefix: "PLANO", company: "PLANO MOLDING CO." },
-        { prefix: "PMC", company: "PMC AMMUNITION, INC." },
+        { prefix: "PMC", company: "PMC" },
         { prefix: "PRED", company: "PREDATOR TACTICS" },
         { prefix: "PRIMOS", company: "BUSHNELL INC." },
         { prefix: "PE", company: "ALTUS BRANDS LLC" },
@@ -333,7 +333,7 @@ module BillHicks
         { prefix: "STEYR", company: "STEYR ARMS" },
         { prefix: "STORM", company: "PELICAN STORM CASES" },
         { prefix: "STREAM", company: "STREAMLIGHT, INC." },
-        { prefix: "SUN", company: "SUN OPTICS USA" },
+        { prefix: "SUN", company: "SUN OPTICS" },
         { prefix: "SF", company: "SGM TACTICAL LLC" },
         { prefix: "SWIFT", company: "SWIFT BULLET COMPANY" },
         { prefix: "TANN", company: "TANNERITE" },
@@ -369,7 +369,7 @@ module BillHicks
         { prefix: "UTAS", company: "UTAS-USA" },
         { prefix: "VV", company: "PIONEER RESEARCH" },
         { prefix: "VC", company: "VERSACARRY" },
-        { prefix: "LAS", company: "VIRIDIAN GREEN LASER SIGHTS" },
+        { prefix: "LAS", company: "VIRIDIAN GREEN LASER" },
         { prefix: "BCMM", company: "VISTA OUTDOOR SALES LLC" },
         { prefix: "CCI", company: "VISTA OUTDOOR SALES LLC" },
         { prefix: "CHAMP", company: "VISTA OUTDOOR SALES LLC" },
@@ -379,8 +379,8 @@ module BillHicks
         { prefix: "RCBS", company: "VISTA OUTDOOR SALES LLC" },
         { prefix: "SHOOT", company: "VISTA OUTDOOR SALES LLC" },
         { prefix: "SPEER", company: "VISTA OUTDOOR SALES LLC" },
-        { prefix: "TALO WAL", company: "WALTHER ARMS,INC." },
-        { prefix: "WAL", company: "WALTHER ARMS,INC." },
+        { prefix: "TALO WAL", company: "WALTHER ARMS, INC." },
+        { prefix: "WAL", company: "WALTHER ARMS, INC." },
         { prefix: "WAR", company: "WARNE" },
         { prefix: "WASP", company: "WASPCAM" },
         { prefix: "WBY", company: "WEATHERBY INC" },

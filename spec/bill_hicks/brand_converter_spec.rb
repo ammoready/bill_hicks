@@ -12,7 +12,7 @@ describe BillHicks::BrandConverter do
     end
 
     it 'finds the corresponding brand for OAI' do
-      expect(BillHicks::BrandConverter.convert('OAI')).to eq('OLYMPIC ARMS INC.')
+      expect(BillHicks::BrandConverter.convert('oai')).to eq('OLYMPIC ARMS INC.')
     end
   end
 
