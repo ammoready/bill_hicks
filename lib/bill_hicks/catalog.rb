@@ -67,12 +67,12 @@ module BillHicks
     # @size integer The number of items in each chunk
     def process_as_chunks(size, &block)
       connect(@options) do |ftp|
-        temp_csv_file = Tempfile.new
+        tempfile = Tempfile.new
 
         ftp.chdir(BillHicks.config.top_level_dir)
-        ftp.getbinaryfile(CATALOG_FILENAME, temp_csv_file.path)
+        ftp.getbinaryfile(CATALOG_FILENAME, tempfile.path)
 
-        SmarterCSV.process(temp_csv_file, { :chunk_size => size, :force_utf8 => true, :convert_values_to_numeric => false }) do |chunk|
+        SmarterCSV.process(File.open(tempfile, "r:iso-8859-1"), { chunk_size: size, force_utf8: true, convert_values_to_numeric: false }) do |chunk|
           chunk.each do |item|
             item[:brand_name] = BillHicks::BrandConverter.convert(item[:product_name])
           end
@@ -80,7 +80,7 @@ module BillHicks
           yield(chunk)
         end
 
-        temp_csv_file.unlink
+        tempfile.unlink
       end
     end
 
