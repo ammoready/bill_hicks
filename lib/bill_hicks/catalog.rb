@@ -73,10 +73,6 @@ module BillHicks
         ftp.getbinaryfile(CATALOG_FILENAME, tempfile.path)
 
         SmarterCSV.process(File.open(tempfile, "r:iso-8859-1"), { chunk_size: size, force_utf8: true, convert_values_to_numeric: false }) do |chunk|
-          chunk.each do |item|
-            item[:brand_name] = BillHicks::BrandConverter.convert(item[:product_name])
-          end
-
           yield(chunk)
         end
 
