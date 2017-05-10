@@ -2,11 +2,13 @@ module BillHicks
   class BrandConverter
 
     def self.convert(value)
-      if brand = self.brands.detect { |brand| brand[:prefix] == value.split[0].upcase }
-        brand[:company].empty? ? value.split[0] : brand[:company]
-      else
-        value.split[0].upcase
+      # Strip out all non-word characters and upcase
+      normalized_value = value.gsub(/\W/, '').split[0].upcase
+      if brand = self.brands.detect { |brand| brand[:prefix] == normalized_value }
+        return brand[:company]
       end
+      # No brand matched with the given prefix
+      normalized_value
     end
 
     def self.brands
