@@ -3,7 +3,7 @@ module BillHicks
 
     def self.convert(value)
       # Strip out all non-word characters and upcase
-      normalized_value = value.gsub(/\W/, '').split[0].upcase
+      normalized_value = value.split[0].gsub(/\W/, '').upcase
       if brand = self.brands.detect { |brand| brand[:prefix] == normalized_value }
         return brand[:company]
       end
