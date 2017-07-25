@@ -3,6 +3,7 @@ require 'bill_hicks/version'
 require 'csv'
 require 'net/ftp'
 require 'smarter_csv'
+require 'tempfile'
 
 require 'bill_hicks/base'
 require 'bill_hicks/catalog'
