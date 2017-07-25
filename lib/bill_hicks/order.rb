@@ -87,7 +87,7 @@ module BillHicks
       [
         'H',
         @header[:customer],
-        @header[:shipping][:ship_to_number],
+        (@header[:shipping][:ship_to_number] || '0000'),
         @header[:shipping][:name],
         @header[:shipping][:address_1],
         @header[:shipping][:address_2],
