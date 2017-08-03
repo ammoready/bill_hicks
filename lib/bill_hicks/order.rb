@@ -98,6 +98,7 @@ module BillHicks
         @header[:shipping_method],
         @header[:notes],
         @header[:ffl],
+        'END',
       ]
     end
 
