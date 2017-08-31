@@ -20,6 +20,11 @@ module BillHicks
       new(options).all
     end
 
+    def self.quantities(chunk_size = 15, options = {}, &block)
+      requires!(options, :username, :password)
+      new(options).quantities(chunk_size, &block)
+    end
+
     def self.process_as_chunks(size = 15, options = {}, &block)
       requires!(options, :username, :password)
       new(options).process_as_chunks(size, &block)
@@ -45,6 +50,33 @@ module BillHicks
       end
 
       inventory
+    end
+
+    def quantities(chunk_size, &block)
+      connect(@options) do |ftp|
+        begin
+          csv_tempfile = Tempfile.new
+
+          ftp.chdir(BillHicks.config.top_level_dir)
+          ftp.getbinaryfile(INVENTORY_FILENAME, csv_tempfile.path)
+
+          SmarterCSV.process(csv_tempfile, {
+            :chunk_size => chunk_size,
+            :force_utf8 => true,
+            :convert_values_to_numeric => false,
+            :key_mapping => {
+              :qty_avail  => :quantity,
+              :upc        => :item_identifier
+            }
+          }) do |chunk|
+            chunk.each do |item|
+              item.except!(:product)
+            end
+          end
+        ensure
+          ftp.close
+        end
+      end
     end
 
     # Streams csv and chunks it
