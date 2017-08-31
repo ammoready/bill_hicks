@@ -54,11 +54,55 @@ module BillHicks
 
             item[:item_identifier] = item[:upc]
             item[:brand] = BillHicks::BrandConverter.convert(item[:name])
+
+            if item[:long_description].present?
+              features = self.parse_features(item[:long_description])
+
+              if features[:action].present?
+                item[:action] = features[:action]
+
+                features.delete(:action)
+              elsif features[:caliber].present?
+                item[:caliber] = features[:caliber]
+
+                features.delete(:caliber)
+              elsif features[:weight].present?
+                item[:weight] = features[:weight]
+
+                features.delete(:weight)
+              end
+            end
           end
 
           yield(chunk)
         end
       end
+    end
+
+    protected
+
+    def parse_features(text)
+      features = Hash.new
+      text = text.split("-")
+      permitted_features = ['weight', 'caliber', 'action', 'mount', 'finish', 'length', 'diameter', 'rail', 'trigger', 'barrel length', 'silencer mount', 'barrel', 'stock', 'internal bore', 'thread pitch']
+
+      text.each do |feature|
+        if feature.include?(':') && feature.length <= 45
+          key, value = feature.split(':')
+
+          if key.nil? || value.nil?
+            next
+          end
+
+          key, value = key.strip.downcase, value.strip
+
+          if permitted_features.include?(key)
+            features[key.gsub(" ", "_")] = value
+          end
+        end
+      end
+
+      features
     end
 
   end
