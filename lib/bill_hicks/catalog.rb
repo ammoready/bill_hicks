@@ -71,6 +71,8 @@ module BillHicks
 
                 features.delete(:weight)
               end
+
+              item[:features] = features
             end
           end
 
