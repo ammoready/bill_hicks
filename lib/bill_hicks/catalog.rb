@@ -86,7 +86,7 @@ module BillHicks
     def parse_features(text)
       features = Hash.new
       text = text.split("-")
-      permitted_features = ['weight', 'caliber', 'action', 'mount', 'finish', 'length', 'diameter', 'rail', 'trigger', 'barrel length', 'silencer mount', 'barrel', 'stock', 'internal bore', 'thread pitch', 'dimensions']
+      permitted_features = ['weight', 'caliber', 'action', 'mount', 'finish', 'length', 'diameter', 'rail', 'trigger', 'barrel length', 'silencer mount', 'barrel', 'stock', 'internal bore', 'thread pitch', 'dimensions', 'bulb type', 'bezel diameter', 'output max', 'battery type', 'mount type', 'waterproof rating', 'operating temperature']
 
       text.each do |feature|
         if feature.include?(':') && feature.length <= 45
