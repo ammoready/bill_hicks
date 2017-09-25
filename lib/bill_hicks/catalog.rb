@@ -62,11 +62,15 @@ module BillHicks
                 item[:action] = features[:action]
 
                 features.delete(:action)
-              elsif features[:caliber].present?
+              end
+
+              if features[:caliber].present?
                 item[:caliber] = features[:caliber]
 
                 features.delete(:caliber)
-              elsif features[:weight].present?
+              end
+
+              if features[:weight].present?
                 item[:weight] = features[:weight]
 
                 features.delete(:weight)
