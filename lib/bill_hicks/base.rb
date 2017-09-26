@@ -5,8 +5,12 @@ module BillHicks
       requires!(options, :username, :password)
 
       Net::FTP.open(BillHicks.config.ftp_host, options[:username], options[:password]) do |ftp|
-        ftp.passive = true
-        yield ftp
+        begin
+          ftp.passive = true
+          yield ftp
+        ensure
+          ftp.close
+        end
       end
     rescue Net::FTPPermError
       raise BillHicks::NotAuthenticated
@@ -35,7 +39,11 @@ module BillHicks
     # Instance methods become class methods through inheritance
     def connect(options)
       self.class.connect(options) do |ftp|
-        yield ftp
+        begin
+          yield ftp
+        ensure
+          ftp.close
+        end
       end
     end
 
