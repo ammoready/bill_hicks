@@ -12,6 +12,7 @@ describe BillHicks::ResponseFile do
       allow(ftp).to receive(:chdir).with("Test/fromBHC") { true }
       allow(ftp).to receive(:nlst).with("*.txt") { ["file1.txt", "file2.txt"] }
       allow(Net::FTP).to receive(:open).with("ftp.host.com", "login", "password") { |&block| block.call(ftp) }
+      allow(ftp).to receive(:close)
     end
 
     it { expect(all.length).to eq(2) }
@@ -66,6 +67,7 @@ describe BillHicks::ResponseFile do
       allow(ftp).to receive(:chdir).with("Test/fromBHC") { true }
       allow(ftp).to receive(:gettextfile).with(filename, nil) { sample_ack_file }
       allow(Net::FTP).to receive(:open).with("ftp.host.com", "login", "password") { |&block| block.call(ftp) }
+      allow(ftp).to receive(:close)
       response_file.content
     end
 

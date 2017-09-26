@@ -24,6 +24,7 @@ describe BillHicks::Order do
     allow(ftp).to receive(:chdir).with('Test/toBHC') { true }
     allow(ftp).to receive(:puttextfile) { '' }
     allow(Net::FTP).to receive(:open).with('ftp.host.com', 'login', 'password') { |&block| block.call(ftp) }
+    allow(ftp).to receive(:close)
   end
 
   describe '#add_header' do
