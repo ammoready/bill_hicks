@@ -20,11 +20,6 @@ module BillHicks
       new(options).all(chunk_size, &block)
     end
 
-    def self.quantities(chunk_size = 15, options = {}, &block)
-      requires!(options, :username, :password)
-      new(options).quantities(chunk_size, &block)
-    end
-
     def all(chunk_size, &block)
       connect(@options) do |ftp|
         begin
