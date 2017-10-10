@@ -38,15 +38,15 @@ module BillHicks
         ftp.getbinaryfile(CATALOG_FILENAME, csv_tempfile.path)
 
         SmarterCSV.process(csv_tempfile, {
-          :chunk_size => chunk_size,
-          :force_utf8 => true,
-          :convert_values_to_numeric => false,
-          :key_mapping => {
-            :universal_product_code => :upc,
-            :product_name           => :name,
-            :product_weight         => :weight,
-            :product_price          => :price,
-            :category_description   => :category
+          chunk_size: chunk_size,
+          force_utf8: true,
+          convert_values_to_numeric: false,
+          key_mapping: {
+            universal_product_code: :upc,
+            product_name:           :name,
+            product_weight:         :weight,
+            product_price:          :price,
+            category_description:   :category
           }
         }) do |chunk|
           chunk.each do |item|
