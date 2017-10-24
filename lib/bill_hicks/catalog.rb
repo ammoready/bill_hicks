@@ -19,6 +19,31 @@ module BillHicks
   class Catalog < Base
 
     CATALOG_FILENAME = 'billhickscatalog.csv'
+    PERMITTED_FEATURES = [
+      'weight',
+      'caliber',
+      'action',
+      'mount',
+      'finish',
+      'length',
+      'diameter',
+      'rail',
+      'trigger',
+      'barrel length',
+      'silencer mount',
+      'barrel',
+      'stock',
+      'internal bore',
+      'thread pitch',
+      'dimensions',
+      'bulb type',
+      'bezel diameter',
+      'output max',
+      'battery type',
+      'mount type',
+      'waterproof rating',
+      'operating temperature'
+    ]
 
     def initialize(options = {})
       requires!(options, :username, :password)
@@ -90,7 +115,6 @@ module BillHicks
     def parse_features(text)
       features = Hash.new
       text = text.split("-")
-      permitted_features = ['weight', 'caliber', 'action', 'mount', 'finish', 'length', 'diameter', 'rail', 'trigger', 'barrel length', 'silencer mount', 'barrel', 'stock', 'internal bore', 'thread pitch', 'dimensions', 'bulb type', 'bezel diameter', 'output max', 'battery type', 'mount type', 'waterproof rating', 'operating temperature']
 
       text.each do |feature|
         if feature.include?(':') && feature.length <= 45
@@ -102,7 +126,7 @@ module BillHicks
 
           key, value = key.strip.downcase, value.strip
 
-          if permitted_features.include?(key)
+          if PERMITTED_FEATURES.include?(key)
             features[key.gsub(" ", "_")] = value
           end
         end
