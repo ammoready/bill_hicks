@@ -71,7 +71,8 @@ module BillHicks
             product_name:           :name,
             product_weight:         :weight,
             product_price:          :price,
-            category_description:   :category
+            category_description:   :category,
+            marp:                   :map_price,
           }
         }) do |chunk|
           chunk.each do |item|
