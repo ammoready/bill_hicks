@@ -80,6 +80,7 @@ module BillHicks
 
             item[:item_identifier] = item[:upc]
             item[:brand] = BillHicks::BrandConverter.convert(item[:name])
+            item[:mfg_number] = item[:name].split.last
 
             if item[:long_description].present?
               features = self.parse_features(item[:long_description])
