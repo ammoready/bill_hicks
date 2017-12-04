@@ -52,7 +52,7 @@ module BillHicks
           chunk.each do |item|
             item.except!(:category_code)
 
-            item[:item_identifier] = item[:upc]
+            item[:item_identifier] = item[:name]
             item[:brand] = BillHicks::BrandConverter.convert(item[:name])
 
             if item[:long_description].present?
