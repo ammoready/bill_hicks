@@ -29,12 +29,12 @@ module BillHicks
           ftp.getbinaryfile(INVENTORY_FILENAME, csv_tempfile.path)
 
           SmarterCSV.process(csv_tempfile, {
-            :chunk_size => chunk_size,
-            :force_utf8 => true,
-            :convert_values_to_numeric => false,
-            :key_mapping => {
-              :qty_avail  => :quantity,
-              :upc        => :item_identifier
+            chunk_size: chunk_size,
+            force_utf8: true,
+            convert_values_to_numeric: false,
+            key_mapping: {
+              qty_avail: :quantity,
+              upc:       :item_identifier
             }
           }) do |chunk|
             chunk.each do |item|

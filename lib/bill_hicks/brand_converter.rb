@@ -328,6 +328,7 @@ module BillHicks
         { prefix: 'SML',     company: 'Standard Manufacturing Company' },
         { prefix: 'STOP',    company: 'Phalanx Defense Systems' },
         { prefix: 'STEYR',   company: 'Steyr Arms' },
+        { prefix: 'STY',     company: 'Styrka' },
         { prefix: 'STORM',   company: 'Pelican Storm Cases' },
         { prefix: 'STREAM',  company: 'Streamlight' },
         { prefix: 'SUN',     company: 'Sun Optics' },

@@ -19,6 +19,31 @@ module BillHicks
   class Catalog < Base
 
     CATALOG_FILENAME = 'billhickscatalog.csv'
+    PERMITTED_FEATURES = [
+      'weight',
+      'caliber',
+      'action',
+      'mount',
+      'finish',
+      'length',
+      'diameter',
+      'rail',
+      'trigger',
+      'barrel length',
+      'silencer mount',
+      'barrel',
+      'stock',
+      'internal bore',
+      'thread pitch',
+      'dimensions',
+      'bulb type',
+      'bezel diameter',
+      'output max',
+      'battery type',
+      'mount type',
+      'waterproof rating',
+      'operating temperature'
+    ]
 
     def initialize(options = {})
       requires!(options, :username, :password)
@@ -38,15 +63,16 @@ module BillHicks
         ftp.getbinaryfile(CATALOG_FILENAME, csv_tempfile.path)
 
         SmarterCSV.process(csv_tempfile, {
-          :chunk_size => chunk_size,
-          :force_utf8 => true,
-          :convert_values_to_numeric => false,
-          :key_mapping => {
-            :universal_product_code => :upc,
-            :product_name           => :name,
-            :product_weight         => :weight,
-            :product_price          => :price,
-            :category_description   => :category
+          chunk_size: chunk_size,
+          force_utf8: true,
+          convert_values_to_numeric: false,
+          key_mapping: {
+            universal_product_code: :upc,
+            product_name:           :name,
+            product_weight:         :weight,
+            product_price:          :price,
+            category_description:   :category,
+            marp:                   :map_price,
           }
         }) do |chunk|
           chunk.each do |item|
@@ -54,6 +80,7 @@ module BillHicks
 
             item[:item_identifier] = item[:name]
             item[:brand] = BillHicks::BrandConverter.convert(item[:name])
+            item[:mfg_number] = item[:name].split.last
 
             if item[:long_description].present?
               features = self.parse_features(item[:long_description])
@@ -90,7 +117,6 @@ module BillHicks
     def parse_features(text)
       features = Hash.new
       text = text.split("-")
-      permitted_features = ['weight', 'caliber', 'action', 'mount', 'finish', 'length', 'diameter', 'rail', 'trigger', 'barrel length', 'silencer mount', 'barrel', 'stock', 'internal bore', 'thread pitch', 'dimensions', 'bulb type', 'bezel diameter', 'output max', 'battery type', 'mount type', 'waterproof rating', 'operating temperature']
 
       text.each do |feature|
         if feature.include?(':') && feature.length <= 45
@@ -102,7 +128,7 @@ module BillHicks
 
           key, value = key.strip.downcase, value.strip
 
-          if permitted_features.include?(key)
+          if PERMITTED_FEATURES.include?(key)
             features[key.gsub(" ", "_")] = value
           end
         end
