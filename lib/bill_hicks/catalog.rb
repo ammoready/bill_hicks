@@ -78,9 +78,11 @@ module BillHicks
           chunk.each do |item|
             item.except!(:category_code)
 
-            item[:item_identifier] = item[:name]
+            mfg_number = item[:name].split.last
+
+            item[:item_identifier] = mfg_number
             item[:brand] = BillHicks::BrandConverter.convert(item[:name])
-            item[:mfg_number] = item[:name].split.last
+            item[:mfg_number] = mfg_number
 
             if item[:long_description].present?
               features = self.parse_features(item[:long_description])
