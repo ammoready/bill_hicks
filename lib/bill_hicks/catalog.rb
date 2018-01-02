@@ -80,6 +80,10 @@ module BillHicks
         }
 
         SmarterCSV.process(File.open(tempfile, "r:iso-8859-1"), smart_options) do |chunk|
+          chunk.each do |item|
+            item[:brand_name] = BillHicks::BrandConverter.convert(item[:product])
+          end
+
           yield(chunk)
         end
 
