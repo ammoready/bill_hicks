@@ -72,7 +72,14 @@ module BillHicks
         ftp.chdir(BillHicks.config.top_level_dir)
         ftp.getbinaryfile(CATALOG_FILENAME, tempfile.path)
 
-        SmarterCSV.process(File.open(tempfile, "r:iso-8859-1"), { chunk_size: size, force_utf8: true, convert_values_to_numeric: false }) do |chunk|
+        smart_options = {
+          chunk_size: size,
+          key_mapping: { universal_product_code: :upc },
+          force_utf8: true,
+          convert_values_to_numeric: false
+        }
+
+        SmarterCSV.process(File.open(tempfile, "r:iso-8859-1"), smart_options) do |chunk|
           yield(chunk)
         end
 
