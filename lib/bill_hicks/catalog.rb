@@ -53,12 +53,12 @@ module BillHicks
 
     def all(chunk_size, &block)
       connect(@options) do |ftp|
-        csv_tempfile = Tempfile.new
+        tempfile = Tempfile.new
 
         ftp.chdir(BillHicks.config.top_level_dir)
-        ftp.getbinaryfile(CATALOG_FILENAME, csv_tempfile.path)
+        ftp.getbinaryfile(CATALOG_FILENAME, tempfile.path)
 
-        SmarterCSV.process(csv_tempfile, {
+        SmarterCSV.process(tempfile, {
           chunk_size: chunk_size,
           force_utf8: true,
           convert_values_to_numeric: false,
@@ -105,6 +105,8 @@ module BillHicks
 
           yield(chunk)
         end
+
+        tempfile.unlink
       end
     end
 

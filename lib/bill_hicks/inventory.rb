@@ -23,18 +23,18 @@ module BillHicks
     def all(chunk_size, &block)
       connect(@options) do |ftp|
         begin
-          csv_tempfile = Tempfile.new
+          tempfile = Tempfile.new
 
           ftp.chdir(BillHicks.config.top_level_dir)
-          ftp.getbinaryfile(INVENTORY_FILENAME, csv_tempfile.path)
+          ftp.getbinaryfile(INVENTORY_FILENAME, tempfile.path)
 
-          SmarterCSV.process(csv_tempfile, {
+          SmarterCSV.process(tempfile, {
             chunk_size: chunk_size,
             force_utf8: true,
             convert_values_to_numeric: false,
             key_mapping: {
+              product: :item_identifier,
               qty_avail: :quantity,
-              upc:       :item_identifier
             }
           }) do |chunk|
             chunk.each do |item|
@@ -44,6 +44,7 @@ module BillHicks
             yield(chunk)
           end
         ensure
+          tempfile.unlink
           ftp.close
         end
       end
