@@ -2,19 +2,15 @@ module BillHicks
   # Catalog item response structure:
   #
   #   {
-  #     product_name:           "...",
-  #     universal_product_code: "...",
-  #     short_description:      "...",
-  #     long_description:       "...",
-  #     category_code:          "...",
-  #     category_description:   "...",
-  #     product_price:          "...",
-  #     small_image_path:       "...",
-  #     large_image_path:       "...",
-  #     product_weight:         "...",
-  #     marp:                   "...",
-  #     msrp:                   "...",
-  #     upc:                    "..."  # alias of ':universal_product_code'
+  #     product_name:      "...",
+  #     upc:               "...",
+  #     short_description: "...",
+  #     long_description:  "...",
+  #     category:          "...",
+  #     price:             "...",
+  #     weight:            "...",
+  #     map:               "...",
+  #     msrp:              "...",
   #   }
   class Catalog < Base
 
@@ -78,11 +74,9 @@ module BillHicks
           chunk.each do |item|
             item.except!(:category_code)
 
-            mfg_number = item[:name].split.last
-
-            item[:item_identifier] = mfg_number
+            item[:item_identifier] = item[:name]
             item[:brand] = BillHicks::BrandConverter.convert(item[:name])
-            item[:mfg_number] = mfg_number
+            item[:mfg_number] = item[:name].split.last
 
             if item[:long_description].present?
               features = self.parse_features(item[:long_description])
