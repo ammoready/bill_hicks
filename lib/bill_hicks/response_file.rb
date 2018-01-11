@@ -28,12 +28,12 @@ module BillHicks
 
     # Is the file a '855 Purchase Order Acknowledgement'?
     def ack?
-      content.start_with?("ACK")
+      filename.downcase.start_with?("ack")
     end
 
     # Is the file a '856 Advance Shipping Notice'?
     def asn?
-      content.start_with?("ASN")
+      filename.downcase.start_with?("asn")
     end
 
     # Use '#gettextfile' to read file contents as a string
@@ -42,6 +42,8 @@ module BillHicks
       connect(@credentials) do |ftp|
         ftp.chdir(BillHicks.config.full_response_dir)
         @content = ftp.gettextfile(@filename, nil)
+        ftp.close
+        @content
       end
     end
 
