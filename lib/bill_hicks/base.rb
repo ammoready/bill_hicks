@@ -9,10 +9,8 @@ module BillHicks
         ftp.passive = true
         yield ftp
       end
-    rescue Net::FTPPermError => e
-      p options
-      puts e.class
-      raise e
+    rescue Net::FTPPermError
+      raise BillHicks::NotAuthenticated
     end
 
     protected
