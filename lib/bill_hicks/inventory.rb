@@ -48,5 +48,8 @@ module BillHicks
         end
       end
     end
+
+    alias quantity all
+
   end
 end
