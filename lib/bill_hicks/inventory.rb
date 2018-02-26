@@ -15,6 +15,10 @@ module BillHicks
       @options = options
     end
 
+    def self.quantity(chunk_size = 15, options = {}, &block)
+      all(chunk_size, options, &block)
+    end
+
     def self.all(chunk_size = 15, options = {}, &block)
       requires!(options, :username, :password)
       new(options).all(chunk_size, &block)
