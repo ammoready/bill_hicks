@@ -7,23 +7,20 @@ module BillHicks
     # @option options [String] :username *required*
     # @option options [String] :password *required*
     # @option options [String] :filename *required*
-    def initialize(options = {})
+    def initialize(ftp, options = {})
       requires!(options, :username, :password, :filename)
 
-      @credentials = options.select { |k, v| [:username, :password].include?(k) }
-      @filename    = options[:filename]
+      @credentials  = options.select { |k, v| [:username, :password].include?(k) }
+      @filename     = options[:filename]
+      @ftp          = ftp
     end
 
     # Return list of '855 Purchase Order Acknowledgement' files
     # @option options [String] :username *required*
     # @option options [String] :password *required*
-    def self.all(options = {})
-      requires!(options, :username, :password)
-
-      Base.connect(options) do |ftp|
-        ftp.chdir(BillHicks.config.full_response_dir)
-        ftp.nlst("*.txt")
-      end
+    def self.all(ftp)
+      ftp.chdir(BillHicks.config.full_response_dir)
+      ftp.nlst("*.txt")
     end
 
     # Is the file a '855 Purchase Order Acknowledgement'?
@@ -39,12 +36,11 @@ module BillHicks
     # Use '#gettextfile' to read file contents as a string
     def content
       return @content if @content
-      connect(@credentials) do |ftp|
-        ftp.chdir(BillHicks.config.full_response_dir)
-        @content = ftp.gettextfile(@filename, nil)
-        ftp.close
-        @content
-      end
+
+      @ftp.chdir(BillHicks.config.full_response_dir)
+      @content = @ftp.gettextfile(@filename, nil)
+
+      @content
     end
 
     # Convert to easily readable key-value pairs
@@ -74,5 +70,4 @@ module BillHicks
     end
 
   end
-
 end
