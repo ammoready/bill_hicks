@@ -6,6 +6,7 @@ require 'smarter_csv'
 require 'tempfile'
 
 require 'bill_hicks/base'
+require 'bill_hicks/ftp'
 require 'bill_hicks/catalog'
 require 'bill_hicks/category'
 require 'bill_hicks/inventory'
