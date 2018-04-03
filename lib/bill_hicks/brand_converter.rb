@@ -134,6 +134,7 @@ module BillHicks
         { prefix: 'FED',     company: 'Federal' },
         { prefix: 'IND',     company: 'Federal' },
         { prefix: 'FIO',     company: 'Fiocchi' },
+        { prefix: 'FO',      company: 'Freedom Ordnance' },
         { prefix: 'WILL',    company: 'Williams Gun Sight Company' },
         { prefix: 'FC',      company: 'Flippin Critters' },
         { prefix: 'FLITZ',   company: 'Flitz' },
