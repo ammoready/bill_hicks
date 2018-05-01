@@ -19,7 +19,6 @@ module BillHicks
     # @option options [String] :username *required*
     # @option options [String] :password *required*
     def self.all(ftp)
-      ftp.chdir(BillHicks.config.full_response_dir)
       ftp.nlst("*.txt")
     end
 
@@ -37,7 +36,6 @@ module BillHicks
     def content
       return @content if @content
 
-      @ftp.chdir(BillHicks.config.full_response_dir)
       @content = @ftp.gettextfile(@filename, nil)
 
       @content
