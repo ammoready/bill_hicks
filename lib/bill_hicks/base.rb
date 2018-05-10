@@ -40,5 +40,22 @@ module BillHicks
       end
     end
 
+    def get_file(filename)
+      connect(@options) do |ftp|
+        begin
+          tempfile = Tempfile.new
+
+          ftp.chdir(BillHicks.config.top_level_dir)
+          ftp.getbinaryfile(filename, tempfile.path)
+
+          tempfile.close
+
+          tempfile
+        ensure
+          ftp.close
+        end
+      end
+    end
+
   end
 end
