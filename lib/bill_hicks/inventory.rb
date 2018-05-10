@@ -17,7 +17,7 @@ module BillHicks
 
     def self.quantity(chunk_size = 15, options = {}, &block)
       requires!(options, :username, :password)
-      new(options).all(chunk_size, options, &block)
+      new(options).all(chunk_size, &block)
     end
 
     def self.all(chunk_size = 15, options = {}, &block)
