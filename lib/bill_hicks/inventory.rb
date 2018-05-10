@@ -15,6 +15,11 @@ module BillHicks
       @options = options
     end
 
+    def self.get_quantity_file(options = {})
+      requires!(options, :username, :password)
+      new(options).get_quantity_file
+    end
+
     def self.quantity(chunk_size = 15, options = {}, &block)
       requires!(options, :username, :password)
       new(options).all(chunk_size, &block)
@@ -26,33 +31,49 @@ module BillHicks
     end
 
     def all(chunk_size, &block)
-      connect(@options) do |ftp|
-        begin
-          tempfile = Tempfile.new
+      quantity_tempfile = get_file(INVENTORY_FILENAME)
 
-          ftp.chdir(BillHicks.config.top_level_dir)
-          ftp.getbinaryfile(INVENTORY_FILENAME, tempfile.path)
+      SmarterCSV.process(quantity_tempfile.open, {
+        chunk_size: chunk_size,
+        force_utf8: true,
+        convert_values_to_numeric: false,
+        key_mapping: {
+          product: :item_identifier,
+          qty_avail: :quantity,
+        }
+      }) do |chunk|
+        chunk.each do |item|
+          item.except!(:product)
+        end
 
-          SmarterCSV.process(tempfile, {
-            chunk_size: chunk_size,
-            force_utf8: true,
-            convert_values_to_numeric: false,
-            key_mapping: {
-              product: :item_identifier,
-              qty_avail: :quantity,
-            }
-          }) do |chunk|
-            chunk.each do |item|
-              item.except!(:product)
-            end
+        yield(chunk)
+      end
 
-            yield(chunk)
-          end
-        ensure
-          tempfile.unlink
-          ftp.close
+      quantity_tempfile.unlink
+    end
+
+    def get_quantity_file
+      quantity_tempfile = get_file(INVENTORY_FILENAME)
+      tempfile          = Tempfile.new
+
+      SmarterCSV.process(quantity_tempfile.open, {
+        chunk_size: 100,
+        force_utf8: true,
+        convert_values_to_numeric: false,
+        key_mapping: {
+          product: :item_identifier,
+          qty_avail: :quantity,
+        }
+      }) do |chunk|
+        chunk.each do |item|
+          tempfile.puts("#{item[:item_identifier]},#{item[:quantity]}")
         end
       end
+
+      quantity_tempfile.unlink
+      tempfile.close
+
+      tempfile.path
     end
 
     alias quantity all
