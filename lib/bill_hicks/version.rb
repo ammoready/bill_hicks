@@ -1,3 +1,3 @@
 module BillHicks
-  VERSION = '1.3.10'.freeze
+  VERSION = '2.2.0'.freeze
 end

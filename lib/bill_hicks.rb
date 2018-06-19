@@ -6,6 +6,7 @@ require 'smarter_csv'
 require 'tempfile'
 
 require 'bill_hicks/base'
+require 'bill_hicks/ftp'
 require 'bill_hicks/catalog'
 require 'bill_hicks/category'
 require 'bill_hicks/inventory'
@@ -31,12 +32,14 @@ module BillHicks
   end
 
   class Configuration
+    attr_accessor :debug_mode
     attr_accessor :ftp_host
     attr_accessor :response_dir
     attr_accessor :submission_dir
     attr_accessor :top_level_dir
 
     def initialize
+      @debug_mode     ||= false
       @ftp_host       ||= "billhicksco.hostedftp.com"
       @top_level_dir  ||= "AmmoReady"
       @submission_dir ||= "toBHC"

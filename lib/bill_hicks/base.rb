@@ -6,6 +6,7 @@ module BillHicks
 
       Net::FTP.open(BillHicks.config.ftp_host, options[:username], options[:password]) do |ftp|
         begin
+          ftp.debug_mode = BillHicks.config.debug_mode
           ftp.passive = true
           yield ftp
         ensure
@@ -41,6 +42,23 @@ module BillHicks
       self.class.connect(options) do |ftp|
         begin
           yield ftp
+        ensure
+          ftp.close
+        end
+      end
+    end
+
+    def get_file(filename)
+      connect(@options) do |ftp|
+        begin
+          tempfile = Tempfile.new
+
+          ftp.chdir(BillHicks.config.top_level_dir)
+          ftp.getbinaryfile(filename, tempfile.path)
+
+          tempfile.close
+
+          tempfile
         ensure
           ftp.close
         end

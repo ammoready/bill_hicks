@@ -15,62 +15,68 @@ module BillHicks
       @options = options
     end
 
-    def self.all(options = {})
+    def self.get_quantity_file(options = {})
       requires!(options, :username, :password)
-      new(options).all
+      new(options).get_quantity_file
     end
 
-    def self.process_as_chunks(size = 15, options = {}, &block)
+    def self.quantity(chunk_size = 15, options = {}, &block)
       requires!(options, :username, :password)
-      new(options).process_as_chunks(size, &block)
+      new(options).all(chunk_size, &block)
     end
 
-    # Returns an array of hashes with the inventory item details.
-    def all
-      inventory = []
-
-      connect(@options) do |ftp|
-        ftp.chdir(BillHicks.config.top_level_dir)
-
-        lines = ftp.gettextfile(INVENTORY_FILENAME, nil)
-
-        CSV.parse(lines, headers: :first_row) do |row|
-          inventory << {
-            brand_name: BillHicks::BrandConverter.convert(row.fetch('Product')),
-            product: row.fetch('Product'),
-            upc: row.fetch('UPC'),
-            quantity: (Integer(row.fetch('Qty Avail')) rescue 0)
-          }
-        end
-      end
-
-      inventory
+    def self.all(chunk_size = 15, options = {}, &block)
+      requires!(options, :username, :password)
+      new(options).all(chunk_size, &block)
     end
 
-    # Streams csv and chunks it
-    #
-    # @size integer The number of items in each chunk
-    def process_as_chunks(size, &block)
-      connect(@options) do |ftp|
-        tempfile = Tempfile.new
+    def all(chunk_size, &block)
+      quantity_tempfile = get_file(INVENTORY_FILENAME)
 
-        ftp.chdir(BillHicks.config.top_level_dir)
-        ftp.getbinaryfile(INVENTORY_FILENAME, tempfile.path)
-
-        smart_options = {
-          chunk_size: size,
-          key_mapping: { qty_avail: :quantity },
-          force_utf8: true,
-          convert_values_to_numeric: false
+      SmarterCSV.process(quantity_tempfile.open, {
+        chunk_size: chunk_size,
+        force_utf8: true,
+        convert_values_to_numeric: false,
+        key_mapping: {
+          product: :item_identifier,
+          qty_avail: :quantity,
         }
-
-        SmarterCSV.process(tempfile, smart_options) do |chunk|
-          yield(chunk)
+      }) do |chunk|
+        chunk.each do |item|
+          item.except!(:product)
         end
 
-        tempfile.unlink
+        yield(chunk)
       end
+
+      quantity_tempfile.unlink
     end
+
+    def get_quantity_file
+      quantity_tempfile = get_file(INVENTORY_FILENAME)
+      tempfile          = Tempfile.new
+
+      SmarterCSV.process(quantity_tempfile.open, {
+        chunk_size: 100,
+        force_utf8: true,
+        convert_values_to_numeric: false,
+        key_mapping: {
+          product: :item_identifier,
+          qty_avail: :quantity,
+        }
+      }) do |chunk|
+        chunk.each do |item|
+          tempfile.puts("#{item[:item_identifier]},#{item[:quantity]}")
+        end
+      end
+
+      quantity_tempfile.unlink
+      tempfile.close
+
+      tempfile.path
+    end
+
+    alias quantity all
 
   end
 end
