@@ -10,7 +10,7 @@ describe BillHicks::User do
 
   describe '#authenticated?' do
     before do
-      ftp = instance_double('Net::FTP', :passive= => true)
+      ftp = instance_double('Net::FTP', :passive= => true, :debug_mode= => true)
       allow(ftp).to receive(:chdir).with('Test/toBHC') { true }
       allow(Net::FTP).to receive(:open).with('ftp.host.com', 'usr', 'pass') { |&block| block.call(ftp) }
       allow(ftp).to receive(:pwd)

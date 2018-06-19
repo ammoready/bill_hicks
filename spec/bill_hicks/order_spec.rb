@@ -20,7 +20,7 @@ describe BillHicks::Order do
   end
 
   before do
-    ftp = instance_double('Net::FTP', :passive= => true)
+    ftp = instance_double('Net::FTP', :passive= => true, :debug_mode= => true)
     allow(ftp).to receive(:chdir).with('Test/toBHC') { true }
     allow(ftp).to receive(:puttextfile) { '' }
     allow(Net::FTP).to receive(:open).with('ftp.host.com', 'login', 'password') { |&block| block.call(ftp) }

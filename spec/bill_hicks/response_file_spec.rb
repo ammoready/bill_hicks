@@ -2,72 +2,57 @@ require 'spec_helper'
 
 describe BillHicks::ResponseFile do
 
-  let(:credentials) { { username: "login", password: "password" } }
+  let(:credentials) { { username: 'login', password: 'password' } }
 
   describe '.all' do
-    let(:all) { BillHicks::ResponseFile.all(credentials) }
+    let(:ftp) { instance_double('Net::FTP') }
 
     before do
-      ftp = instance_double("Net::FTP", :passive= => true)
-      allow(ftp).to receive(:chdir).with("Test/fromBHC") { true }
-      allow(ftp).to receive(:nlst).with("*.txt") { ["file1.txt", "file2.txt"] }
-      allow(Net::FTP).to receive(:open).with("ftp.host.com", "login", "password") { |&block| block.call(ftp) }
-      allow(ftp).to receive(:close)
+      allow(ftp).to receive(:nlst).with('*.txt') { ['file1.txt', 'file2.txt'] }
     end
 
-    it { expect(all.length).to eq(2) }
+    it { expect(BillHicks::ResponseFile.all(ftp).length).to eq(2) }
   end
 
   describe '#ack?' do
-    let(:response_file) { BillHicks::ResponseFile.new(username: "user", password: "pass", filename: '20161117-0001.txt') }
+    let(:ftp) { instance_double('Net::FTP') }
 
     context "is an ACK file" do
-      before do
-        allow(response_file).to receive(:content) { sample_ack_file }
-      end
+      let(:response_file) { BillHicks::ResponseFile.new(ftp, credentials.merge(filename: 'ACK.20161117-0001.txt')) }
 
       it { expect(response_file.ack?).to be(true) }
     end
 
     context "is NOT an ACK file" do
-      before do
-        allow(response_file).to receive(:content) { sample_asn_file }
-      end
+      let(:response_file) { BillHicks::ResponseFile.new(ftp, credentials.merge(filename: 'ASN.20161117-0001.txt')) }
 
       it { expect(response_file.ack?).to be(false) }
     end
   end
 
   describe '#asn?' do
-    let(:response_file) { BillHicks::ResponseFile.new(username: "user", password: "pass", filename: '20161117-0001.txt') }
+    let(:ftp) { instance_double('Net::FTP') }
 
     context "is an ASN file" do
-      before do
-        allow(response_file).to receive(:content) { sample_asn_file }
-      end
+      let(:response_file) { BillHicks::ResponseFile.new(ftp, credentials.merge(filename: 'ASN.20161117-0001.txt')) }
 
       it { expect(response_file.asn?).to be(true) }
     end
 
     context "is NOT an ASN file" do
-      before do
-        allow(response_file).to receive(:content) { sample_ack_file }
-      end
+      let(:response_file) { BillHicks::ResponseFile.new(ftp, credentials.merge(filename: 'ACK.20161117-0001.txt')) }
 
       it { expect(response_file.asn?).to be(false) }
     end
   end
 
   describe '#content' do
-    let(:filename) { '20161117-0001.txt' }
-    let(:response_file) { BillHicks::ResponseFile.new(credentials.merge(filename: filename)) }
+    let(:ftp) { instance_double('Net::FTP') }
+    let(:filename) { 'ACK-20161117-0001.txt' }
+    let(:response_file) { BillHicks::ResponseFile.new(ftp, credentials.merge(filename: filename)) }
 
     before do
-      ftp = instance_double("Net::FTP", :passive= => true)
-      allow(ftp).to receive(:chdir).with("Test/fromBHC") { true }
       allow(ftp).to receive(:gettextfile).with(filename, nil) { sample_ack_file }
-      allow(Net::FTP).to receive(:open).with("ftp.host.com", "login", "password") { |&block| block.call(ftp) }
-      allow(ftp).to receive(:close)
       response_file.content
     end
 
@@ -76,8 +61,10 @@ describe BillHicks::ResponseFile do
 
   describe '#to_json' do
     context 'all is fine' do
-      let(:filename) { '20161117-0001.txt' }
-      let(:response_file) { BillHicks::ResponseFile.new(credentials.merge(filename: filename)) }
+      let(:ftp) { instance_double('Net::FTP') }
+      let(:filename) { 'ACK-20161117-0001.txt' }
+      let(:response_file) { BillHicks::ResponseFile.new(ftp, credentials.merge(filename: filename)) }
+
 
       before do
         allow(response_file).to receive(:content) { sample_ack_file }
@@ -93,8 +80,9 @@ describe BillHicks::ResponseFile do
     end
 
     context 'bad ASN file' do
+      let(:ftp) { instance_double('Net::FTP') }
       let(:filename) { '20161117-0001.txt' }
-      let(:response_file) { BillHicks::ResponseFile.new(credentials.merge(filename: filename)) }
+      let(:response_file) { BillHicks::ResponseFile.new(ftp, credentials.merge(filename: filename)) }
 
       before do
         allow(response_file).to receive(:content) { sample_bad_asn_file }
