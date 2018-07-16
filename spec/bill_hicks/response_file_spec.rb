@@ -52,7 +52,7 @@ describe BillHicks::ResponseFile do
     let(:response_file) { BillHicks::ResponseFile.new(ftp, credentials.merge(filename: filename)) }
 
     before do
-      allow(ftp).to receive(:gettextfile).with(filename, nil) { sample_ack_file }
+      allow(ftp).to receive(:gettextfile).with(filename, nil) { FixtureHelper.get_fixture_file('sample_ack_file.txt').read }
       response_file.content
     end
 
@@ -65,9 +65,8 @@ describe BillHicks::ResponseFile do
       let(:filename) { 'ACK-20161117-0001.txt' }
       let(:response_file) { BillHicks::ResponseFile.new(ftp, credentials.merge(filename: filename)) }
 
-
       before do
-        allow(response_file).to receive(:content) { sample_ack_file }
+        allow(response_file).to receive(:content) { FixtureHelper.get_fixture_file('sample_ack_file.txt').read }
         @json = response_file.to_json
       end
 
@@ -85,7 +84,7 @@ describe BillHicks::ResponseFile do
       let(:response_file) { BillHicks::ResponseFile.new(ftp, credentials.merge(filename: filename)) }
 
       before do
-        allow(response_file).to receive(:content) { sample_bad_asn_file }
+        allow(response_file).to receive(:content) { FixtureHelper.get_fixture_file('sample_bad_asn_file.txt').read }
         @json = response_file.to_json
       end
 

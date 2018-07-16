@@ -24,5 +24,4 @@ RSpec.configure do |config|
   end
 
   config.include FixtureHelper
-  config.include SampleFiles
 end
