@@ -56,8 +56,6 @@ module BillHicks
           ftp.chdir(BillHicks.config.top_level_dir)
           ftp.getbinaryfile(filename, tempfile.path)
 
-          tempfile.close
-
           tempfile
         ensure
           ftp.close

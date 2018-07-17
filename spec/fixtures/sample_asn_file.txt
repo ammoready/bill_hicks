@@ -1,0 +1,2 @@
+ASN|PO Date|Ship Date|PO Number|Quantity Ordered|Quantity Shipped|Product ID|UPC Number|Unit of Measure|Price|Shipto Name|Shipto Address1|Shipto Address2|Shipto City|Shipto State|Shipto Zip Code|Tracking Number|Carrier|BHC Order Number
+ASNData|02/10/2014|41682|999999910|6|6|ABC-987|987658741235|EA|1.00|Customer 1|1234 Main Street||Anywhere|CO|81154|1Z3698754124255|UPSG|1234567

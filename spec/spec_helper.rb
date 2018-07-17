@@ -2,6 +2,8 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 
 require 'rspec'
 require 'pp'
+require 'active_support'
+require 'active_support/core_ext'
 
 require "bill_hicks"
 
@@ -21,5 +23,5 @@ RSpec.configure do |config|
     end
   end
 
-  config.include SampleFiles
+  config.include FixtureHelper
 end

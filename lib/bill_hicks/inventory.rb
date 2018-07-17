@@ -8,6 +8,7 @@ module BillHicks
   #   }
   class Inventory < Base
 
+    CHUNK_SIZE = 2000
     INVENTORY_FILENAME = 'billhicksinventory.csv'
 
     def initialize(options = {})
@@ -20,21 +21,21 @@ module BillHicks
       new(options).get_quantity_file
     end
 
-    def self.quantity(chunk_size = 15, options = {}, &block)
+    def self.quantity(options = {}, &block)
       requires!(options, :username, :password)
-      new(options).all(chunk_size, &block)
+      new(options).all &block
     end
 
-    def self.all(chunk_size = 15, options = {}, &block)
+    def self.all(options = {}, &block)
       requires!(options, :username, :password)
-      new(options).all(chunk_size, &block)
+      new(options).all &block
     end
 
-    def all(chunk_size, &block)
+    def all(&block)
       quantity_tempfile = get_file(INVENTORY_FILENAME)
 
-      SmarterCSV.process(quantity_tempfile.open, {
-        chunk_size: chunk_size,
+      SmarterCSV.process(quantity_tempfile, {
+        chunk_size: CHUNK_SIZE,
         force_utf8: true,
         convert_values_to_numeric: false,
         key_mapping: {
@@ -43,21 +44,21 @@ module BillHicks
         }
       }) do |chunk|
         chunk.each do |item|
-          item.except!(:product)
+          yield item
         end
-
-        yield(chunk)
       end
 
+      quantity_tempfile.close
       quantity_tempfile.unlink
+      true
     end
 
     def get_quantity_file
       quantity_tempfile = get_file(INVENTORY_FILENAME)
       tempfile          = Tempfile.new
 
-      SmarterCSV.process(quantity_tempfile.open, {
-        chunk_size: 100,
+      SmarterCSV.process(quantity_tempfile, {
+        chunk_size: CHUNK_SIZE,
         force_utf8: true,
         convert_values_to_numeric: false,
         key_mapping: {
@@ -70,9 +71,9 @@ module BillHicks
         end
       end
 
+      quantity_tempfile.close
       quantity_tempfile.unlink
       tempfile.close
-
       tempfile.path
     end
 

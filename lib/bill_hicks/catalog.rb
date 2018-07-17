@@ -14,7 +14,8 @@ module BillHicks
   #   }
   class Catalog < Base
 
-    CATALOG_FILENAME = 'billhickscatalog.csv'
+    CHUNK_SIZE = 500
+    CATALOG_FILENAME = 'billhickscatalog.csv'.freeze
     PERMITTED_FEATURES = [
       'weight',
       'caliber',
@@ -46,12 +47,12 @@ module BillHicks
       @options = options
     end
 
-    def self.all(chunk_size = 15, options = {}, &block)
+    def self.all(options = {}, &block)
       requires!(options, :username, :password)
-      new(options).all(chunk_size, &block)
+      new(options).all &block
     end
 
-    def all(chunk_size, &block)
+    def all(&block)
       connect(@options) do |ftp|
         tempfile = Tempfile.new
 
@@ -59,7 +60,7 @@ module BillHicks
         ftp.getbinaryfile(CATALOG_FILENAME, tempfile.path)
 
         SmarterCSV.process(tempfile, {
-          chunk_size: chunk_size,
+          chunk_size: CHUNK_SIZE,
           force_utf8: true,
           convert_values_to_numeric: false,
           key_mapping: {
@@ -75,35 +76,21 @@ module BillHicks
             item.except!(:category_code)
 
             item[:item_identifier] = item[:name]
-            item[:brand] = BillHicks::BrandConverter.convert(item[:name])
-            item[:mfg_number] = item[:name].split.last
+            item[:brand]           = BillHicks::BrandConverter.convert(item[:name])
+            item[:mfg_number]      = item[:name].split.last
 
             if item[:long_description].present?
-              features = self.parse_features(item[:long_description])
+              features = parse_features(item[:long_description])
 
-              if features[:action].present?
-                item[:action] = features[:action]
-
-                features.delete(:action)
-              end
-
-              if features[:caliber].present?
-                item[:caliber] = features[:caliber]
-
-                features.delete(:caliber)
-              end
-
-              if features[:weight].present?
-                item[:weight] = features[:weight]
-
-                features.delete(:weight)
-              end
+              item[:action]  = features.delete(:action)  if features[:action].present?
+              item[:caliber] = features.delete(:caliber) if features[:caliber].present?
+              item[:weight]  = features.delete(:weight)  if features[:weight].present?
 
               item[:features] = features
             end
-          end
 
-          yield(chunk)
+            yield item
+          end
         end
 
         tempfile.unlink

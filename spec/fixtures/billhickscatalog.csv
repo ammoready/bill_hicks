@@ -1,0 +1,68 @@
+product_name,universal_product_code,short_description,long_description,category_code,category_description,product_price,small_image_path,large_image_path,product_weight,marp,msrp
+BBB 100100,999000000001,BBB 100100 Gigabox,Caliber: org - Action: com - Daly City Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,6.94,,,0.91,,11.94
+BBB 100101,999000000002,BBB 100101 Topicware,Action: name - Materials: biz - Citrus Heights Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,3.64,,,0.15,,8.64
+BBB 100102,999000000003,BBB 100102 Yabox,Materials: net - Caliber: biz - Corte Madera Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,2.23,,,0.15,,7.23
+BBB 100103,999000000004,BBB 100103 Izio,Action: com - Caliber: name - Long Beach Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,3.76,,,0.28,,8.76
+BBB 100104,999000000005,BBB 100104 Skynoodle,Action: edu - Caliber: net - Indian Wells Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,3.16,,,2,,8.16
+BBB 100105,999000000006,BBB 100105 Avamba,Caliber: info - Materials: biz - Lincoln Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,1.06,,,0.91,,6.06
+BBB 100106,999000000007,BBB 100106 Mybuzz,Action: name - Materials: name - Auburn Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,7.29,,,0.15,,12.29
+BBB 100107,999000000008,BBB 100107 Shuffletag,Action: com - Materials: name - Fountain Valley Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,0.38,,,0.15,,5.38
+BBB 100108,999000000009,BBB 100108 Jetpulse,Materials: org - Caliber: name - Lakeport Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.92,,,0.28,,14.92
+BBB 100109,999000000010,BBB 100109 Izio,Caliber: net - Action: info - Cypress Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.93,,,2,,14.93
+BBB 100110,999000000011,BBB 100110 Vitz,Caliber: net - Action: name - Farmersville Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,1.07,,,0.91,,6.07
+BBB 100111,999000000012,BBB 100111 Meevee,Caliber: info - Action: net - Laguna Niguel Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,0.95,,,0.15,,5.95
+BBB 100112,999000000013,BBB 100112 Miboo,Caliber: com - Action: net - Rancho Mirage Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,5.58,,,0.15,,10.58
+BBB 100113,999000000014,BBB 100113 Dazzlesphere,Action: info - Caliber: com - Dana Point Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,5.1,,,0.28,,10.1
+BBB 100114,999000000015,BBB 100114 Jaxbean,Materials: gov - Caliber: com - Belvedere Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,0.41,,,2,,5.41
+BBB 100115,999000000016,BBB 100115 Meejo,Caliber: gov - Materials: info - Morgan Hill Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,3.31,,,0.91,,8.31
+BBB 100116,999000000017,BBB 100116 Leexo,Materials: org - Action: net - Plymouth Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,2.78,,,0.15,,7.78
+BBB 100117,999000000018,BBB 100117 Yodoo,Caliber: net - Action: name - Petaluma Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,5.23,,,0.15,,10.23
+BBB 100118,999000000019,BBB 100118 Ailane,Caliber: info - Action: org - Signal Hill Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,8.32,,,0.28,,13.32
+BBB 100119,999000000020,BBB 100119 Meembee,Caliber: gov - Action: gov - South Gate Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.16,,,2,,14.16
+BBB 100120,999000000021,BBB 100120 Cogilith,Caliber: gov - Materials: name - Monrovia Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,0.63,,,0.91,,5.63
+BBB 100121,999000000022,BBB 100121 Izio,Materials: info - Caliber: name - Dunsmuir Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,7.11,,,0.15,,12.11
+BBB 100122,999000000023,BBB 100122 Zooxo,Action: gov - Materials: name - Temple City Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,2.39,,,0.15,,7.39
+BBB 100123,999000000024,BBB 100123 Jetpulse,Materials: net - Action: org - Corcoran Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G400,YABOX,2.03,,,0.28,,7.03
+BBB 100124,999000000025,BBB 100124 Zoombox,Caliber: org - Action: biz - City of Commerce Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G400,YABOX,2.41,,,2,,7.41
+BBB 100125,999000000026,BBB 100125 Devpulse,Caliber: net - Action: org - Bradbury Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G400,YABOX,109.96,,,0.91,,114.96
+BBB 100126,999000000027,BBB 100126 Wikizz,Caliber: edu - Action: info - Laguna Hills Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G400,YABOX,5.52,,,0.15,,10.52
+BBB 100127,999000000028,BBB 100127 Tagcat,Materials: biz - Caliber: mil - Loyalton Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G400,YABOX,4.42,,,0.15,,9.42
+BBB 100128,999000000029,BBB 100128 Skimia,Action: com - Materials: org - Saratoga Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G400,YABOX,8.32,,,0.28,,13.32
+BBB 100129,999000000030,BBB 100129 Devify,Materials: name - Action: edu - Rancho Cordova Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G400,YABOX,7.3,,,2,,12.3
+BBB 100130,999000000031,BBB 100130 Devshare,Caliber: com - Materials: info - Lodi Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G400,YABOX,0.22,,,0.91,,5.22
+BBB 100131,999000000032,BBB 100131 Mydeo,Caliber: biz - Action: info - Carlsbad Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G400,YABOX,3.89,,,0.15,,8.89
+BBB 100132,999000000033,BBB 100132 Kamba,Materials: edu - Caliber: biz - Carpinteria Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G400,YABOX,7.68,,,0.15,,12.68
+BBB 100133,999000000034,BBB 100133 Fivespan,Caliber: net - Action: mil - City of Commerce Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,3.58,,,0.28,,8.58
+BBB 100134,999000000035,BBB 100134 Kaymbo,Materials: gov - Action: com - Loomis Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,8.22,,,2,,13.22
+BBB 100135,999000000036,BBB 100135 Twiyo,Materials: gov - Caliber: edu - Colusa Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,3.19,,,0.91,,8.19
+BBB 100136,999000000037,BBB 100136 Twitternation,Caliber: info - Action: name - Santee Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,2.25,,,0.15,,7.25
+BBB 100137,999000000038,BBB 100137 Tazzy,Caliber: name - Materials: net - Azusa Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,3.02,,,0.15,,8.02
+BBB 100138,999000000039,BBB 100138 Yabox,Action: net - Caliber: name - Claremont Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,3.19,,,0.28,,8.19
+CCC 200200,999000000040,CCC 200200 Innojam,Caliber: net - Action: mil - Seaside Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,600.02,,,2,601,605.02
+CCC 200201,999000000041,CCC 200201 Quatz,Caliber: com - Materials: biz - Cudahy Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,1.13,,,0.91,,6.13
+CCC 200202,999000000042,CCC 200202 Rhycero,Action: com - Materials: name - Holtville Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,2.85,,,0.15,,7.85
+CCC 200203,999000000043,CCC 200203 Skivee,Caliber: info - Action: name - Moorpark Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,6.45,,,0.15,,11.45
+CCC 200204,999000000044,CCC 200204 Yozio,Materials: info - Caliber: name - Windsor Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,1.19,,,0.28,,6.19
+CCC 200205,999000000045,CCC 200205 Yombu,Materials: org - Caliber: gov - Benicia Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,0.65,,,2,,5.65
+CCC 200206,999000000046,CCC 200206 Kazu,Action: biz - Caliber: net - Yuba City Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,8.1,,,0.91,,13.1
+CCC 200207,999000000047,CCC 200207 Cogilith,Materials: mil - Action: com - Martinez Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,5.4,,,0.15,,10.4
+CCC 200208,999000000048,CCC 200208 Eabox,Materials: mil - Action: mil - Merced Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,3.65,,,0.15,,8.65
+CCC 200209,999000000049,CCC 200209 Brainlounge,Caliber: org - Action: com - Simi Valley Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.88,,,0.28,,14.88
+CCC 200210,999000000050,CCC 200210 Realbridge,Action: gov - Materials: edu - Tiburon Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.79,,,2,,14.79
+CCC 200211,999000000051,CCC 200211 Quinu,Materials: name - Caliber: info - Culver City Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.01,,,0.91,,14.01
+CCC 200212,999000000052,CCC 200212 Demivee,Caliber: net - Materials: name - Moraga Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,0.74,,,0.15,,5.74
+CCC 200213,999000000053,CCC 200213 Cogilith,Caliber: net - Materials: net - Williams Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.09,,,0.15,,14.09
+CCC 200214,999000000054,CCC 200214 Demimbu,Action: name - Caliber: info - Danville Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.11,,,0.28,,14.11
+CCC 200215,999000000055,CCC 200215 Demimbu,Action: net - Caliber: mil - Napa Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,8.7,,,2,,13.7
+CCC 200216,999000000056,CCC 200216 Skippad,Caliber: edu - Materials: name - Desert Hot Springs Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,7.06,,,0.91,,12.06
+CCC 200217,999000000057,CCC 200217 Fatz,Action: mil - Caliber: net - Escalon Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.61,,,0.15,,14.61
+CCC 200218,999000000058,CCC 200218 Cogilith,Action: org - Caliber: com - Norco Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,4.97,,,0.15,,9.97
+CCC 200219,999000000059,CCC 200219 Browseblab,Action: name - Materials: edu - Hanford Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,0.17,,,0.28,,5.17
+CCC 200220,999000000060,CCC 200220 Livetube,Materials: mil - Caliber: info - Pinole Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,5.39,,,2,,10.39
+CCC 200221,999000000061,CCC 200221 Vitz,Action: name - Caliber: org - Oxnard Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.36,,,0.91,,14.36
+CCC 200222,999000000062,CCC 200222 Skippad,Materials: edu - Action: gov - Chula Vista Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,7.83,,,0.15,,12.83
+CCC 200223,999000000063,CCC 200223 Plajo,Action: mil - Materials: net - San Dimas Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,7.53,,,0.15,,12.53
+CCC 200224,999000000064,CCC 200224 Ntags,Materials: name - Action: net - Lakeport Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,6.82,,,0.28,,11.82
+CCC 200225,999000000065,CCC 200225 Thoughtmix,Materials: edu - Caliber: net - Susanville Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,7.29,,,2,,12.29
+CCC 200226,999000000066,CCC 200226 Twimbo,Materials: net - Caliber: name - Palos Verdes Estates Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,2.87,,,0.91,,7.87
+CCC 200227,999000000067,CCC 200227 Rhyzio,Caliber: mil - Materials: net - Lathrop Lorem ipsum dolor sit amet consectetuer adipiscing elit.,G300,THOUGHTMIX,9.01,,,0.15,,14.01
