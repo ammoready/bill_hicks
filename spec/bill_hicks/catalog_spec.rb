@@ -22,13 +22,8 @@ describe BillHicks::Catalog do
       allow(billhickscatalog).to receive(:unlink) { nil }
     end
 
-    it 'yields each and every item' do
-      count = 0
-      BillHicks::Catalog.all(credentials) do |item|
-        count += 1
-      end
-
-      expect(count).to eq(67)
+    it 'returns an array of all items' do
+      expect(BillHicks::Catalog.all(credentials).count).to eq(67)
     end
   end
 
