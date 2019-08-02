@@ -47,12 +47,14 @@ module BillHicks
       @options = options
     end
 
-    def self.all(options = {}, &block)
+    def self.all(options = {})
       requires!(options, :username, :password)
-      new(options).all &block
+      new(options).all
     end
 
-    def all(&block)
+    def all
+      items = []
+
       connect(@options) do |ftp|
         tempfile = Tempfile.new
 
@@ -89,12 +91,14 @@ module BillHicks
               item[:features] = features
             end
 
-            yield item
+            items << item
           end
         end
 
         tempfile.unlink
       end
+
+      items
     end
 
     protected
