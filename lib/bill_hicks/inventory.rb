@@ -21,17 +21,18 @@ module BillHicks
       new(options).get_quantity_file
     end
 
-    def self.quantity(options = {}, &block)
+    def self.quantity(options = {})
       requires!(options, :username, :password)
-      new(options).all &block
+      new(options).all
     end
 
-    def self.all(options = {}, &block)
+    def self.all(options = {})
       requires!(options, :username, :password)
-      new(options).all &block
+      new(options).all
     end
 
-    def all(&block)
+    def all
+      items             = []
       quantity_tempfile = get_file(INVENTORY_FILENAME)
 
       SmarterCSV.process(quantity_tempfile, {
@@ -44,13 +45,14 @@ module BillHicks
         }
       }) do |chunk|
         chunk.each do |item|
-          yield item
+          items << item
         end
       end
 
       quantity_tempfile.close
       quantity_tempfile.unlink
-      true
+
+      items
     end
 
     def get_quantity_file
