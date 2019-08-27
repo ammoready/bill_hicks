@@ -22,13 +22,10 @@ describe BillHicks::Inventory do
       allow(billhicksinventory).to receive(:unlink) { nil }
     end
 
-    it 'yields each and every item' do
-      count = 0
-      BillHicks::Inventory.all(credentials) do |item|
-        count += 1
-      end
+    it 'returns an array of items' do
+      items = BillHicks::Inventory.all(credentials)
 
-      expect(count).to eq(60)
+      expect(items.count).to eq(60)
     end
   end
 
